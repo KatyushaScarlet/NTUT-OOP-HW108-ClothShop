@@ -22,7 +22,29 @@ void MallUI::start()
 {
     while (true)
     {
-        //获取所有的商店
+        //获取所有顾客
+        vector<Customer*> customers = *(_mall->getCustomers());
+
+        //输出顾客选单
+        for (size_t i = 0; i < customers.size(); i++)
+        {
+            cout << (i + 1) << "." << customers[i]->getName() << endl;
+        }
+
+        //添加离开的选项
+        cout << (customers.size() + 1) << ".離開" << endl;
+        //顾客选择防呆
+        int selectCustomer = menuCustomerSelect(1, customers.size() + 1);
+
+        //选择离开时直接结束
+        if (selectCustomer == customers.size() + 1)
+        {
+            exit(0);
+        }
+
+        //获取当前选中的客户
+        Customer* nowCustomer = customers[selectCustomer - 1];
+        //获取所有商店
         vector<Shop*> shops = *(_mall->getShops());
 
         //输出商店选单
@@ -32,28 +54,35 @@ void MallUI::start()
         }
 
         //商店选择防呆
-        int inputNumber = menuShopSelect(1, shops.size());
-        //选择商店
-        _mall->selectShop(inputNumber);
+        int selectShop = menuShopSelect(1, shops.size());
         //获取当前选中的商店
-        Shop* nowShop = shops[inputNumber - 1];
+        Shop* nowShop = shops[selectShop - 1];
+        //选择商店和客户
+        _mall->selectCustomerAndShop(selectCustomer, selectShop);
         //商店操作选单
-        menuShopUI(nowShop);
+        menuShopUI(nowShop, nowCustomer);
     }
 }
 
 //商店操作选单（UI）
-void MallUI::menuShopUI(Shop* nowShop)
+void MallUI::menuShopUI(Shop* nowShop, Customer* nowCustomer)
 {
     while (true)
     {
+        //输出欢迎信息
+        cout << "親愛的顧客：" << nowCustomer->getName() << "，您好！" << endl;
         //输出商店操作选单
         cout << "(" << nowShop->getName() << ")" << "1.新增衣服" << endl;
         cout << "(" << nowShop->getName() << ")" << "2.查看所有衣服" << endl;
-        cout << "(" << nowShop->getName() << ")" << "3.返回商場" << endl;
+        cout << "(" << nowShop->getName() << ")" << "3.建立新訂單" << endl;
+		cout << "(" << nowShop->getName() << ")" << "4.購買衣服" << endl;
+		cout << "(" << nowShop->getName() << ")" << "5.結束訂單" << endl;
+		cout << "(" << nowShop->getName() << ")" << "6.查看剩餘點數" << endl;
+		cout << "(" << nowShop->getName() << ")" << "7.查看歷史收據" << endl;
+		cout << "(" << nowShop->getName() << ")" << "8.離開" << endl;
         cout << "請輸入選擇：";
         //商店内操作防呆
-        int inputNumber = menuShopActionSelect(1, 3);
+        int inputNumber = menuShopActionSelect(1, 8);
 
         //处理输入
         if (inputNumber == 1)
@@ -68,13 +97,38 @@ void MallUI::menuShopUI(Shop* nowShop)
         }
         else if (inputNumber == 3)
         {
-            //返回商城
-            break;
+			//建立新订单
+			createNewOrder(nowShop, nowCustomer);
         }
+		else if (inputNumber == 4)
+		{
+			//购买衣服
+			addClothToOrder(nowShop, nowCustomer);
+		}
+		else if (inputNumber == 5)
+		{
+			//结束订单
+			placeAnOrder(nowShop, nowCustomer);
+		}
+		else if (inputNumber == 6)
+		{
+			//查看剩余点数
+			showPoints(nowCustomer);
+		}
+		else if (inputNumber == 7)
+		{
+			//查看历史收据
+			showHistoryOrders(nowCustomer);
+		}
+		else if (inputNumber == 8)
+		{
+			//返回商城
+			break;
+		}
     }
 }
 
-//添加衣服（UI）
+//新增衣服（UI）
 void MallUI::addClothToShopUI(Shop* nowShop)
 {
     try
@@ -123,6 +177,58 @@ void MallUI::showAllClothsFormShopUI(Shop* nowShop)
 
     //输出完毕后清空容器
     cloths.clear();
+}
+
+//建立新订单（UI）
+void MallUI::createNewOrder(Shop* nowShop, Customer* nowCustomer)
+{
+	cout << "TODO createNewOrder" << endl;
+}
+//购买衣服（UI）
+void MallUI::addClothToOrder(Shop* nowShop, Customer* nowCustomer)
+{
+	cout << "TODO addClothToOrder" << endl;
+}
+//结束订单（UI）
+void MallUI::placeAnOrder(Shop* nowShop, Customer* nowCustomer)
+{
+	cout << "TODO addClothToOrder" << endl;
+}
+
+//查看剩余点数（UI）
+void MallUI::showPoints(Customer* customer) 
+{
+	cout << "您剩餘的點數剩下：" << customer->getCash() << endl;
+}
+
+//查看历史收据（UI）
+void MallUI::showHistoryOrders(Customer* customer)
+{
+	cout << "本功能尚未完成實作" << endl;
+}
+
+//顾客选择防呆
+int MallUI::menuCustomerSelect(int min, int max)
+{
+    //读取输入
+    int inputNumber;
+    cout << "Select Customer:";
+    cin >> inputNumber;
+
+    //如果输入的数据类型不正确，或超出范围
+    while (cin.fail() || (inputNumber < min || inputNumber > max))
+    {
+        //错误提示
+        cout << "請選擇畫面上的顾客" << endl;
+        //清空cin的错误状态
+        cin.clear();
+        cin.ignore(1024, '\n');
+        //重新读取输入
+        cout << "Select Customer:";
+        cin >> inputNumber;
+    }
+
+    return inputNumber;
 }
 
 //商店选择防呆

@@ -31,13 +31,13 @@ class Customer
         void addClothToOrder(Cloth* cloth);
         //获取订单总价
         double getOrderTotalPrice();
-        //点数是否足够
+        //判断点数是否足够
         bool isPointEnough();
         //从订单扣取点数
         void reducePointFromOrder();
         //取消订单
         void cancelOrder();
-        //获取客户订单
+        //获取当前的订单
         Order* getCurrentOrder();
 };
 

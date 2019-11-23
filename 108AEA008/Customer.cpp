@@ -10,7 +10,10 @@ using namespace std;
 //构造函数
 Customer::Customer(string name)
 {
+	//输入姓名
     _name = name;
+	//预设点数为2000
+	_point = 2000;
 }
 //获取姓名
 string Customer::getName()
@@ -37,7 +40,7 @@ double Customer::getOrderTotalPrice()
 {
     return _order->getTotalPrice();
 }
-//点数是否足够
+//判断点数是否足够
 bool Customer::isPointEnough()
 {
     //判断点数是否大于等于订单总价

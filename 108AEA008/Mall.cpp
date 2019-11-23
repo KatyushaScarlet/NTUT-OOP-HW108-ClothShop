@@ -13,18 +13,16 @@ Mall::Mall()
     addShops(fileContent, &_shops);
     //根据规则排序店铺
     sortShopVector(&_shops);
+	//添加默认顾客
+	addCustomer(new Customer("Amber"));
+	addCustomer(new Customer("Tim"));
+	addCustomer(new Customer("Marry"));
 }
 
 //添加衣服
 void Mall::createNewCloth(string name, string description, double price)
 {
     _shops[_shopIndex]->createNewCloth(name, description, price);
-}
-
-//选择商店
-void Mall::selectShop(int shopIndex)
-{
-    _shopIndex = shopIndex;
 }
 
 //获取所有衣服
@@ -37,6 +35,56 @@ vector<Cloth*>* Mall::getClothes()
 vector<Shop*>* Mall::getShops()
 {
     return &_shops;
+}
+
+//获取所有顾客
+vector<Customer*>* Mall::getCustomers()
+{
+	return &_customers;
+}
+
+//创建新订单
+void Mall::makeNewOrder()
+{
+    _customers[_customerIndex]->makeNewOrder(_shops[_shopIndex]);
+}
+
+//向订单添加衣服
+void Mall::addOrderToCloth(int id)
+{
+	Cloth* selectCloth = _shops[_shopIndex]->findCloth(id);
+	_customers[_customerIndex]->addClothToOrder(selectCloth);
+}
+
+//选择顾客与商店
+void Mall::selectCustomerAndShop(int custimerIndex, int shopIndex)
+{
+    _customerIndex = custimerIndex;
+    _shopIndex = shopIndex;
+}
+
+//判断点数是否足够
+bool Mall::isPointEnough()
+{
+    return _customers[_customerIndex]->isPointEnough();
+}
+
+//从订单扣取点数
+void Mall::reducePointFromOrder()
+{
+    _customers[_customerIndex]->reducePointFromOrder();
+}
+
+//取消订单
+void Mall::cancelOrder()
+{
+    _customers[_customerIndex]->cancelOrder();
+}
+
+//获取当前的订单
+Order* Mall::getCurrentOrder()
+{
+    return _customers[_customerIndex]->getCurrentOrder();
 }
 
 //自定义Shop的比较规则
@@ -75,6 +123,12 @@ void Mall::sortShopVector(vector<Shop*>* shops)
             }
         }
     }
+}
+
+//添加顾客信息
+void Mall::addCustomer(Customer* customer)
+{
+	_customers.push_back(customer);
 }
 
 //写入店铺信息
