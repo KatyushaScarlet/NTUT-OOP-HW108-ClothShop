@@ -10,9 +10,9 @@ class MallUI
     private:
         //当前的商店
         Mall* _mall;
-		//商店选择防呆
+        //商店选择防呆
         int menuShopSelect(int min, int max);
-		//商店内操作防呆
+        //商店内操作防呆
         int menuShopActionSelect(int min, int max);
         //文字输入防呆
         string checkInputString();
@@ -22,7 +22,12 @@ class MallUI
         vector<string> split(string str, char key);
         //判断是否为合法浮点数
         bool isDouble(const string& str);
-
+        //添加衣服（UI）
+        void addClothToShopUI(Shop* nowShop);
+        //查看所有衣服（UI）
+        void showAllClothsFormShopUI(Shop* nowShop);
+        //商店操作选单（UI）
+        void menuShopUI(Shop* nowShop);
     public:
         //构造函数
         MallUI(Mall* mall);

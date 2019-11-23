@@ -66,6 +66,7 @@ void Mall::sortShopVector(vector<Shop*>* shops)
     {
         for (size_t j = i + 1; j < shops->size(); j++)
         {
+            //采用自定规则比较大小
             if (compareShop((*shops)[i + 1], (*shops)[i]))
             {
                 Shop* temp = (*shops)[i + 1];
