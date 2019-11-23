@@ -21,10 +21,10 @@ class MallUI
         string checkInputString();
         //价格输入防呆
         double checkInputPrice();
-		//衣服id输入防呆
-		int checkInputClothId();
-		//衣服数量输入防呆
-		int checkInputClothCount();
+        //衣服id输入防呆
+        int checkInputClothId();
+        //衣服数量输入防呆
+        int checkInputClothCount();
         //分割文本
         vector<string> split(string str, char key);
         //判断是否为合法浮点数
@@ -32,19 +32,19 @@ class MallUI
         //商店操作选单（UI）
         void menuShopUI(Shop* nowShop, Customer* nowCustomer);
         //新增衣服（UI）
-        void addClothToShopUI(Shop* nowShop);
+        void addClothToShopUI();
         //查看所有衣服（UI）
-        void showAllClothsFormShopUI(Shop* nowShop);
+        void showAllClothsFormShopUI();
         //建立新订单（UI）
-        void createNewOrder(Shop* nowShop, Customer* nowCustomer);
+        void createNewOrder();
         //购买衣服（UI）
-        void addClothToOrder(Shop* nowShop, Customer* nowCustomer);
+        void addClothToOrder();
         //结束订单（UI）
-        void placeAnOrder(Shop* nowShop, Customer* nowCustomer);
+        void placeAnOrder();
         //查看剩余点数（UI）
-        void showPoints(Customer* customer);
+        void showPoints();
         //查看历史收据（UI）
-        void showHistoryOrders(Customer* customer);
+        void showHistoryOrders();
     public:
         //构造函数
         MallUI(Mall* mall);

@@ -239,3 +239,15 @@ string Mall::getShopContent(string line)
 
     return output;
 }
+
+//获取当前选中的商店
+Shop* Mall::getSelectShop()
+{
+    return _shops[_shopIndex];
+}
+
+//获取当前选中的顾客
+Customer* Mall::getSelectCustomer()
+{
+    return _customers[_customerIndex];
+}

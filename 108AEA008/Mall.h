@@ -61,5 +61,9 @@ class Mall
         vector<Shop*>* getShops();
         //获取所有顾客
         vector<Customer*>* getCustomers();
+        //获取当前选中的商店
+        Shop* getSelectShop();
+        //获取当前选中的顾客
+        Customer* getSelectCustomer();
 };
 #endif

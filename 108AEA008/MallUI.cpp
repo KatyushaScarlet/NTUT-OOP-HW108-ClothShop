@@ -58,7 +58,7 @@ void MallUI::start()
         //获取当前选中的商店
         Shop* nowShop = shops[selectShop - 1];
         //选择商店和客户
-        _mall->selectCustomerAndShop(selectCustomer, selectShop);
+        _mall->selectCustomerAndShop(selectCustomer - 1, selectShop - 1);
         //商店操作选单
         menuShopUI(nowShop, nowCustomer);
     }
@@ -88,37 +88,37 @@ void MallUI::menuShopUI(Shop* nowShop, Customer* nowCustomer)
         if (inputNumber == 1)
         {
             //新增衣服
-            addClothToShopUI(nowShop);
+            addClothToShopUI();
         }
         else if (inputNumber == 2)
         {
             //查看所有衣服
-            showAllClothsFormShopUI(nowShop);
+            showAllClothsFormShopUI();
         }
         else if (inputNumber == 3)
         {
             //建立新订单
-            createNewOrder(nowShop, nowCustomer);
+            createNewOrder();
         }
         else if (inputNumber == 4)
         {
             //购买衣服
-            addClothToOrder(nowShop, nowCustomer);
+            addClothToOrder();
         }
         else if (inputNumber == 5)
         {
             //结束订单
-            placeAnOrder(nowShop, nowCustomer);
+            placeAnOrder();
         }
         else if (inputNumber == 6)
         {
             //查看剩余点数
-            showPoints(nowCustomer);
+            showPoints();
         }
         else if (inputNumber == 7)
         {
             //查看历史收据
-            showHistoryOrders(nowCustomer);
+            showHistoryOrders();
         }
         else if (inputNumber == 8)
         {
@@ -129,7 +129,7 @@ void MallUI::menuShopUI(Shop* nowShop, Customer* nowCustomer)
 }
 
 //新增衣服（UI）
-void MallUI::addClothToShopUI(Shop* nowShop)
+void MallUI::addClothToShopUI()
 {
     try
     {
@@ -149,7 +149,7 @@ void MallUI::addClothToShopUI(Shop* nowShop)
         cout << "請輸入價格：";
         //价格输入防呆
         clothPrice = checkInputPrice();
-        nowShop->createNewCloth(clothName, clothDescription, clothPrice);
+        _mall->createNewCloth(clothName, clothDescription, clothPrice);
         cout << "添加完畢！" << endl;
     }
     catch (const std::exception&)
@@ -163,11 +163,11 @@ void MallUI::addClothToShopUI(Shop* nowShop)
 }
 
 //查看所有衣服（UI）
-void MallUI::showAllClothsFormShopUI(Shop* nowShop)
+void MallUI::showAllClothsFormShopUI()
 {
     cout << std::left << setw(6) << "No." << std::left << setw(50) << "衣服名稱" << std::left << setw(10) << "價格" << std::left << setw(50) << "描述" << endl;
     //获取所有衣服
-    vector<Cloth*> cloths = *(nowShop->getClothes());
+    vector<Cloth*> cloths = *(_mall->getClothes());
 
     //逐行输出
     for (int i = 0; i < cloths.size(); i++)
@@ -180,19 +180,19 @@ void MallUI::showAllClothsFormShopUI(Shop* nowShop)
 }
 
 //建立新订单（UI）
-void MallUI::createNewOrder(Shop* nowShop, Customer* nowCustomer)
+void MallUI::createNewOrder()
 {
-    nowCustomer->makeNewOrder(nowShop);
+    _mall->makeNewOrder();
     cout << "成功建立新訂單！！！" << endl;
 }
 
 //购买衣服（UI）
-void MallUI::addClothToOrder(Shop* nowShop, Customer* nowCustomer)
+void MallUI::addClothToOrder()
 {
-    if (nowCustomer->getCurrentOrder() != NULL)
+    if (_mall->getCurrentOrder() != NULL)
     {
         //显示所有衣服
-        showAllClothsFormShopUI(nowShop);
+        showAllClothsFormShopUI();
         cout << endl;
 
         while (true)
@@ -216,7 +216,7 @@ void MallUI::addClothToOrder(Shop* nowShop, Customer* nowCustomer)
                 }
 
                 //查找衣服是否存在
-                Cloth* clothFind = nowShop->findCloth(clothId);
+                Cloth* clothFind = _mall->getSelectShop()->findCloth(clothId);
 
                 if (clothFind->getId() == 0)
                 {
@@ -231,7 +231,7 @@ void MallUI::addClothToOrder(Shop* nowShop, Customer* nowCustomer)
                 //将cloth添加进order
                 for (int i = 0; i < clothCount; i++)
                 {
-                    nowCustomer->addClothToOrder(clothFind);
+                    _mall->addOrderToCloth(clothId);
                 }
             }
             catch (const std::exception&)
@@ -251,18 +251,18 @@ void MallUI::addClothToOrder(Shop* nowShop, Customer* nowCustomer)
 }
 
 //结束订单（UI）
-void MallUI::placeAnOrder(Shop* nowShop, Customer* nowCustomer)
+void MallUI::placeAnOrder()
 {
     //判断是否建立过订单
-    if (nowCustomer->getCurrentOrder() != NULL)
+    if (_mall->getCurrentOrder() != NULL)
     {
         //如果建立过订单，判断剩余点数是否足够
-        if (nowCustomer->isPointEnough())
+        if (_mall->isPointEnough())
         {
             //如果点数足够，则扣除点数
-            nowCustomer->reducePointFromOrder();
+            _mall->reducePointFromOrder();
             //订单结束后取消订单
-            nowCustomer->cancelOrder();
+            _mall->cancelOrder();
             cout << "訂單結束成功！" << endl;
         }
         else
@@ -277,13 +277,13 @@ void MallUI::placeAnOrder(Shop* nowShop, Customer* nowCustomer)
 }
 
 //查看剩余点数（UI）
-void MallUI::showPoints(Customer* customer)
+void MallUI::showPoints()
 {
-    cout << "您剩餘的點數剩下：" << customer->getCash() << endl;
+    cout << "您剩餘的點數剩下：" << _mall->getSelectCustomer()->getCash() << endl;
 }
 
 //查看历史收据（UI）
-void MallUI::showHistoryOrders(Customer* customer)
+void MallUI::showHistoryOrders()
 {
     cout << "本功能尚未完成實作" << endl;
 }
