@@ -25,8 +25,8 @@ class Mall
         bool compareShop(Shop* shop1, Shop* shop2);
         //对vector<Shop*>进行排序
         void sortShopVector(vector<Shop*>* shops);
-		//添加顾客信息
-		void addCustomer(Customer* customer);
+        //添加顾客信息
+        void addCustomer(Customer* customer);
         //写入店铺信息
         void addShops(vector<string> fileContent, vector<Shop*>* _shops);
         //读取文件内容
@@ -54,12 +54,12 @@ class Mall
         void cancelOrder();
         //获取当前的订单
         Order* getCurrentOrder();
-		//----------以下为自定义function----------
-				//获取所有衣服
-		vector<Cloth*>* getClothes();
-		//获取所有商店
-		vector<Shop*>* getShops();
-		//获取所有顾客
-		vector<Customer*>* getCustomers();
+        //----------以下为自定义function----------
+        //获取所有衣服
+        vector<Cloth*>* getClothes();
+        //获取所有商店
+        vector<Shop*>* getShops();
+        //获取所有顾客
+        vector<Customer*>* getCustomers();
 };
 #endif

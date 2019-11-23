@@ -75,11 +75,11 @@ void MallUI::menuShopUI(Shop* nowShop, Customer* nowCustomer)
         cout << "(" << nowShop->getName() << ")" << "1.新增衣服" << endl;
         cout << "(" << nowShop->getName() << ")" << "2.查看所有衣服" << endl;
         cout << "(" << nowShop->getName() << ")" << "3.建立新訂單" << endl;
-		cout << "(" << nowShop->getName() << ")" << "4.購買衣服" << endl;
-		cout << "(" << nowShop->getName() << ")" << "5.結束訂單" << endl;
-		cout << "(" << nowShop->getName() << ")" << "6.查看剩餘點數" << endl;
-		cout << "(" << nowShop->getName() << ")" << "7.查看歷史收據" << endl;
-		cout << "(" << nowShop->getName() << ")" << "8.離開" << endl;
+        cout << "(" << nowShop->getName() << ")" << "4.購買衣服" << endl;
+        cout << "(" << nowShop->getName() << ")" << "5.結束訂單" << endl;
+        cout << "(" << nowShop->getName() << ")" << "6.查看剩餘點數" << endl;
+        cout << "(" << nowShop->getName() << ")" << "7.查看歷史收據" << endl;
+        cout << "(" << nowShop->getName() << ")" << "8.離開" << endl;
         cout << "請輸入選擇：";
         //商店内操作防呆
         int inputNumber = menuShopActionSelect(1, 8);
@@ -97,34 +97,34 @@ void MallUI::menuShopUI(Shop* nowShop, Customer* nowCustomer)
         }
         else if (inputNumber == 3)
         {
-			//建立新订单
-			createNewOrder(nowShop, nowCustomer);
+            //建立新订单
+            createNewOrder(nowShop, nowCustomer);
         }
-		else if (inputNumber == 4)
-		{
-			//购买衣服
-			addClothToOrder(nowShop, nowCustomer);
-		}
-		else if (inputNumber == 5)
-		{
-			//结束订单
-			placeAnOrder(nowShop, nowCustomer);
-		}
-		else if (inputNumber == 6)
-		{
-			//查看剩余点数
-			showPoints(nowCustomer);
-		}
-		else if (inputNumber == 7)
-		{
-			//查看历史收据
-			showHistoryOrders(nowCustomer);
-		}
-		else if (inputNumber == 8)
-		{
-			//返回商城
-			break;
-		}
+        else if (inputNumber == 4)
+        {
+            //购买衣服
+            addClothToOrder(nowShop, nowCustomer);
+        }
+        else if (inputNumber == 5)
+        {
+            //结束订单
+            placeAnOrder(nowShop, nowCustomer);
+        }
+        else if (inputNumber == 6)
+        {
+            //查看剩余点数
+            showPoints(nowCustomer);
+        }
+        else if (inputNumber == 7)
+        {
+            //查看历史收据
+            showHistoryOrders(nowCustomer);
+        }
+        else if (inputNumber == 8)
+        {
+            //返回商城
+            break;
+        }
     }
 }
 
@@ -182,29 +182,110 @@ void MallUI::showAllClothsFormShopUI(Shop* nowShop)
 //建立新订单（UI）
 void MallUI::createNewOrder(Shop* nowShop, Customer* nowCustomer)
 {
-	cout << "TODO createNewOrder" << endl;
+    nowCustomer->makeNewOrder(nowShop);
+    cout << "成功建立新訂單！！！" << endl;
 }
+
 //购买衣服（UI）
 void MallUI::addClothToOrder(Shop* nowShop, Customer* nowCustomer)
 {
-	cout << "TODO addClothToOrder" << endl;
+    if (nowCustomer->getCurrentOrder() != NULL)
+    {
+        //显示所有衣服
+        showAllClothsFormShopUI(nowShop);
+        cout << endl;
+
+        while (true)
+        {
+            try
+            {
+                //清空上次的输入
+                cin.clear();
+                cin.ignore(1024, '\n');
+                //开始处理输入
+                int clothId;
+                int clothCount;
+                //获取衣服id
+                cout << "請輸入衣服ID，離開請輸入-1：";
+                clothId = checkInputClothId();
+
+                if (clothId == -1)
+                {
+                    //输入-1则结束
+                    return;
+                }
+
+                //查找衣服是否存在
+                Cloth* clothFind = nowShop->findCloth(clothId);
+
+                if (clothFind->getId() == 0)
+                {
+                    cout << "未找到id為" << clothId << "的衣服，請重試" << endl;
+                    continue;
+                }
+
+                //获取的衣服数量
+                cout << "請輸入衣服數量：";
+                clothCount = checkInputClothCount();
+
+                //将cloth添加进order
+                for (int i = 0; i < clothCount; i++)
+                {
+                    nowCustomer->addClothToOrder(clothFind);
+                }
+            }
+            catch (const std::exception&)
+            {
+                //其他异常提示
+                cout << "發生異常，請重新輸入" << endl;
+                //清空cin的错误状态
+                cin.clear();
+                cin.ignore(1024, '\n');
+            }
+        }
+    }
+    else
+    {
+        cout << "請建立新訂單，才能購買衣服！" << endl;
+    }
 }
+
 //结束订单（UI）
 void MallUI::placeAnOrder(Shop* nowShop, Customer* nowCustomer)
 {
-	cout << "TODO addClothToOrder" << endl;
+    //判断是否建立过订单
+    if (nowCustomer->getCurrentOrder() != NULL)
+    {
+        //如果建立过订单，判断剩余点数是否足够
+        if (nowCustomer->isPointEnough())
+        {
+            //如果点数足够，则扣除点数
+            nowCustomer->reducePointFromOrder();
+            //订单结束后取消订单
+            nowCustomer->cancelOrder();
+            cout << "訂單結束成功！" << endl;
+        }
+        else
+        {
+            cout << "剩餘點數不足，無法進行購買！" << endl;
+        }
+    }
+    else
+    {
+        cout << "請先建立新訂單，才能夠結束訂單！" << endl;
+    }
 }
 
 //查看剩余点数（UI）
-void MallUI::showPoints(Customer* customer) 
+void MallUI::showPoints(Customer* customer)
 {
-	cout << "您剩餘的點數剩下：" << customer->getCash() << endl;
+    cout << "您剩餘的點數剩下：" << customer->getCash() << endl;
 }
 
 //查看历史收据（UI）
 void MallUI::showHistoryOrders(Customer* customer)
 {
-	cout << "本功能尚未完成實作" << endl;
+    cout << "本功能尚未完成實作" << endl;
 }
 
 //顾客选择防呆
@@ -323,6 +404,49 @@ double MallUI::checkInputPrice()
     return price;
 }
 
+
+//衣服id输入防呆
+int MallUI::checkInputClothId()
+{
+    int inputId;
+    cin >> inputId;
+
+    //如果输入格式错误
+    while (cin.fail())
+    {
+        //错误提示
+        cout << "格式錯誤，請重新輸入" << endl;
+        cout << "請輸入衣服ID，離開請輸入-1：";
+        //清空cin的错误状态
+        cin.clear();
+        cin.ignore(1024, '\n');
+        cin >> inputId;
+    }
+
+    return inputId;
+}
+
+//衣服数量输入防呆
+int MallUI::checkInputClothCount()
+{
+    int inputNumber;
+    cin >> inputNumber;
+
+    //如果输入格式错误，或数量小于等于0
+    while (cin.fail() || inputNumber <= 0)
+    {
+        //错误提示
+        cout << "格式錯誤，請重新輸入" << endl;
+        cout << "請輸入衣服數量：";
+        //清空cin的错误状态
+        cin.clear();
+        cin.ignore(1024, '\n');
+        cin >> inputNumber;
+    }
+
+    return inputNumber;
+}
+
 //分割文本
 vector<string> MallUI::split(string input, char pattern)
 {
@@ -374,12 +498,14 @@ bool MallUI::isDouble(const string& str)
             }
         }
 
+        //读取下个字符
         item++;
     }
 
     //如果小数点或副号超过一个
     if (dotCount > 1 || negativeCount > 1)
     {
+        //不是合法的浮点数
         return false;
     }
 

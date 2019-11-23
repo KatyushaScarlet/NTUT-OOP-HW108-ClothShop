@@ -13,10 +13,10 @@ Mall::Mall()
     addShops(fileContent, &_shops);
     //根据规则排序店铺
     sortShopVector(&_shops);
-	//添加默认顾客
-	addCustomer(new Customer("Amber"));
-	addCustomer(new Customer("Tim"));
-	addCustomer(new Customer("Marry"));
+    //添加默认顾客
+    addCustomer(new Customer("Amber"));
+    addCustomer(new Customer("Tim"));
+    addCustomer(new Customer("Marry"));
 }
 
 //添加衣服
@@ -40,7 +40,7 @@ vector<Shop*>* Mall::getShops()
 //获取所有顾客
 vector<Customer*>* Mall::getCustomers()
 {
-	return &_customers;
+    return &_customers;
 }
 
 //创建新订单
@@ -52,8 +52,8 @@ void Mall::makeNewOrder()
 //向订单添加衣服
 void Mall::addOrderToCloth(int id)
 {
-	Cloth* selectCloth = _shops[_shopIndex]->findCloth(id);
-	_customers[_customerIndex]->addClothToOrder(selectCloth);
+    Cloth* selectCloth = _shops[_shopIndex]->findCloth(id);
+    _customers[_customerIndex]->addClothToOrder(selectCloth);
 }
 
 //选择顾客与商店
@@ -128,7 +128,7 @@ void Mall::sortShopVector(vector<Shop*>* shops)
 //添加顾客信息
 void Mall::addCustomer(Customer* customer)
 {
-	_customers.push_back(customer);
+    _customers.push_back(customer);
 }
 
 //写入店铺信息

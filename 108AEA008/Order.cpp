@@ -11,18 +11,21 @@ Order::Order(Shop* shop)
     //设置当前商店
     _shop = shop;
 }
+
 //获取当前商店
 Shop* Order::getShop()
 {
     //返回当前商店
     return _shop;
 }
+
 //订单添加衣服
 void Order::addCloth(Cloth* clothToAdd)
 {
     //新的Cloth加入Vector中
     _orderedClothes.push_back(clothToAdd);
 }
+
 //获取订单总价
 double Order::getTotalPrice()
 {
