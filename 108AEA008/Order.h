@@ -1,0 +1,26 @@
+#ifndef ORDER
+#define ORDER
+
+#include <vector>
+#include "Cloth.h"
+#include "Shop.h"
+
+class Order
+{
+    private:
+        //订单中的所有衣服
+        vector<Cloth*> _orderedClothes;
+        //订单对应的商店
+        Shop* _shop;
+    public:
+        //构造函数
+        Order(Shop* shop);
+        //获取当前商店
+        Shop* getShop();
+        //订单添加衣服
+        void addCloth(Cloth* clothToAdd);
+        //获取订单总价
+        double getTotalPrice();
+};
+
+#endif // !ORDER
