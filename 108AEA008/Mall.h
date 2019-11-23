@@ -12,14 +12,14 @@ using namespace std;
 class Mall
 {
     private:
-        //当前选中的商店
-        int _shopIndex;
         //当前选中的顾客
         int _customerIndex;
-        //所有商店
-        vector<Shop*> _shops;
+        //当前选中的商店
+        int _shopIndex;
         //所有顾客
         vector<Customer*>_customers;
+        //所有商店
+        vector<Shop*> _shops;
         //----------以下为自定义function----------
         //自定义Shop的比较规则
         bool compareShop(Shop* shop1, Shop* shop2);
@@ -54,13 +54,13 @@ class Mall
         void cancelOrder();
         //获取当前的订单
         Order* getCurrentOrder();
-        //----------以下为自定义function----------
         //获取所有衣服
         vector<Cloth*>* getClothes();
         //获取所有商店
         vector<Shop*>* getShops();
         //获取所有顾客
         vector<Customer*>* getCustomers();
+        //----------以下为自定义function----------
         //获取当前选中的商店
         Shop* getSelectShop();
         //获取当前选中的顾客

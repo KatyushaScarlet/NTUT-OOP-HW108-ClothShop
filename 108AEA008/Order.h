@@ -24,5 +24,4 @@ class Order
         //获取订单总价
         double getTotalPrice();
 };
-
 #endif // !ORDER

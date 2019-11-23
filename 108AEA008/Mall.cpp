@@ -22,7 +22,7 @@ Mall::Mall()
 //添加衣服
 void Mall::createNewCloth(string name, string description, double price)
 {
-    _shops[_shopIndex]->createNewCloth(name, description, price);
+    _shops[_shopIndex]->addNewCloth(name, description, price);
 }
 
 //获取所有衣服
@@ -157,7 +157,7 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
             //如果内容不为空
             vector<string>newCloth = getClothContent(fileContent[i]);
             //将当前店铺添加新的衣服
-            newShop->createNewCloth(newCloth[0], newCloth[1], atof(newCloth[2].c_str()));
+            newShop->addNewCloth(newCloth[0], newCloth[1], atof(newCloth[2].c_str()));
         }
     }
 

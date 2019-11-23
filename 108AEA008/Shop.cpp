@@ -28,7 +28,7 @@ Cloth* Shop::findCloth(int id)
 }
 
 //添加衣服
-void Shop::createNewCloth(string name, string description, double price)
+void Shop::addNewCloth(string name, string description, double price)
 {
     _clothes.push_back(new Cloth(name, description, price, _clothesId));
     //每添加一件衣服，id增加1

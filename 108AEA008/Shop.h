@@ -22,7 +22,7 @@ class Shop
         //寻找衣服
         Cloth* findCloth(int id);
         //添加衣服
-        void createNewCloth(string name, string description, double price);
+        void addNewCloth(string name, string description, double price);
         //获取商店名称
         string getName();
         //获取所有衣服
