@@ -3,6 +3,8 @@
 #include "Shop.h"
 #include"Order.h"
 
+using namespace std;
+
 //¹¹Ôìº¯Êý
 Order::Order(Shop* shop)
 {

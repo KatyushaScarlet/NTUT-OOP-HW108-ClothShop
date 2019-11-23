@@ -10,6 +10,8 @@
 #include"Mall.h"
 #include"MallUI.h"
 
+using namespace std;
+
 int main()
 {
     Mall mall;

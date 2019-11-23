@@ -7,6 +7,8 @@
 #include"Shop.h"
 #include"Order.h"
 
+using namespace std;
+
 class Customer
 {
     private:

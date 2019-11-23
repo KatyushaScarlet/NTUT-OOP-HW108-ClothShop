@@ -4,8 +4,7 @@
 #include<string>
 #include<vector>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 class Cloth
 {

@@ -23,7 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cloth.cpp" />
-    <ClCompile Include="Common.cpp" />
     <ClCompile Include="Customer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mall.cpp" />
@@ -33,7 +32,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cloth.h" />
-    <ClInclude Include="Common.h" />
     <ClInclude Include="Customer.h" />
     <ClInclude Include="Mall.h" />
     <ClInclude Include="MallUI.h" />

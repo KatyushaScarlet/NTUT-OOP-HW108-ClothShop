@@ -5,6 +5,8 @@
 #include"Order.h"
 #include"Customer.h"
 
+using namespace std;
+
 //¹¹Ôìº¯Êı
 Customer::Customer(string name)
 {

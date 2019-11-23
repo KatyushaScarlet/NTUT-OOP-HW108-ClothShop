@@ -5,6 +5,8 @@
 #include "Cloth.h"
 #include "Shop.h"
 
+using namespace std;
+
 class Order
 {
     private:

@@ -5,8 +5,7 @@
 #include<vector>
 #include"Cloth.h"
 
-using std::string;
-using std::vector;
+using namespace std;
 
 class Shop
 {

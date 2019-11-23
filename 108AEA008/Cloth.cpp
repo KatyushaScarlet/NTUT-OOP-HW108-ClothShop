@@ -1,5 +1,7 @@
 #include"Cloth.h"
 
+using namespace std;
+
 //¹¹Ôìº¯Êý
 Cloth::Cloth(string name, string description, double price, int id)
 {

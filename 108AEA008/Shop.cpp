@@ -1,6 +1,8 @@
 #include"Cloth.h"
 #include"Shop.h"
 
+using namespace std;
+
 //³õÊ¼ÒÂ·þid
 int Shop::_clothesId = 1;
 
