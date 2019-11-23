@@ -115,3 +115,98 @@ void MallUI::start()
         }
     }
 }
+
+
+
+
+//商店选单防呆
+int MallUI::menuShopSelect(int min, int max)
+{
+	//读取输入
+	int inputNumber;
+	cout << "Select Shop:";
+	cin >> inputNumber;
+
+	//如果输入的数据类型不正确，或超出范围
+	while (cin.fail() || (inputNumber < min || inputNumber > max))
+	{
+		//错误提示
+		cout << "請選擇畫面上的店家" << endl;
+		//清空cin的错误状态
+		cin.clear();
+		cin.ignore(1024, '\n');
+		//重新读取输入
+		cout << "Select Shop:";
+		cin >> inputNumber;
+	}
+
+	return inputNumber;
+}
+
+//商店内操作选单防呆
+int MallUI::menuShopActionSelect(int min, int max)
+{
+	//读取输入
+	int inputNumber;
+	cin >> inputNumber;
+
+	//如果输入的数据类型不正确，或超出范围
+	while (cin.fail() || (inputNumber < min || inputNumber > max))
+	{
+		//错误提示
+		cout << "請輸入正確選項：";
+		//清空cin的错误状态
+		cin.clear();
+		cin.ignore(1024, '\n');
+		//重新读取输入
+		cin >> inputNumber;
+	}
+
+	return inputNumber;
+}
+
+//文字输入防呆
+string MallUI::checkInputString()
+{
+	string inputString;
+	getline(cin, inputString);
+
+	//如果输入格式错误或长度为空
+	while (cin.fail() || inputString == "")
+	{
+		//错误提示
+		cout << "輸入錯誤，請重新輸入：";
+		//清空cin的错误状态
+		cin.clear();
+		cin.ignore(1024, '\n');
+		getline(cin, inputString);
+	}
+
+	return inputString;
+}
+
+//价格输入防呆
+double MallUI::checkInputPrice()
+{
+	double price;
+	string inputString;
+	cin >> inputString;
+	//尝试转换为浮点类
+	price = atof(inputString.c_str());
+
+	//如果输入格式错误或范围错误
+	while (cin.fail() || !isDouble(inputString) || price <= 0)
+	{
+		//错误提示
+		cout << "價格不能小於等於零，請重新輸入" << endl;
+		cout << "請輸入價格：";
+		//清空cin的错误状态
+		cin.clear();
+		cin.ignore(1024, '\n');
+		cin >> inputString;
+		//尝试转换为浮点类
+		price = atof(inputString.c_str());
+	}
+
+	return price;
+}

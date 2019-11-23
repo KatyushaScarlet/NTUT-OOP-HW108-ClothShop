@@ -16,6 +16,14 @@ class Mall
         int _shopIndex;
         //所有商店
         vector<Shop*> _shops;
+		//自定义Shop的比较规则
+		bool compareShop(Shop* shop1, Shop* shop2);
+		//对vector<Shop*>进行排序
+		void sortShopVector(vector<Shop*>* shops);
+		//写入店铺信息
+		void addShops(vector<string> fileContent, vector<Shop*>* _shops);
+		//读取文件内容
+		vector<string> readFile(string fileName);
     public:
         //构造函数
         Mall();
