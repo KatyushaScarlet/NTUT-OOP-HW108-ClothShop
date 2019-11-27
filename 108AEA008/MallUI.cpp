@@ -20,30 +20,33 @@ MallUI::MallUI(Mall* mall)
 //开始运行
 void MallUI::start()
 {
+    //选择客户
+    //获取所有顾客
+    vector<Customer*> customers = *(_mall->getCustomers());
+
+    //输出顾客选单
+    for (size_t i = 0; i < customers.size(); i++)
+    {
+        cout << (i + 1) << "." << customers[i]->getName() << endl;
+    }
+
+    //添加离开的选项
+    cout << (customers.size() + 1) << ".離開" << endl;
+    //顾客选择防呆
+    int selectCustomer = menuCustomerSelect(1, customers.size() + 1);
+
+    //选择离开时直接结束
+    if (selectCustomer == customers.size() + 1)
+    {
+        exit(0);
+    }
+
+    //获取当前选中的客户
+    Customer* nowCustomer = customers[selectCustomer - 1];
+
+    //选择商店
     while (true)
     {
-        //获取所有顾客
-        vector<Customer*> customers = *(_mall->getCustomers());
-
-        //输出顾客选单
-        for (size_t i = 0; i < customers.size(); i++)
-        {
-            cout << (i + 1) << "." << customers[i]->getName() << endl;
-        }
-
-        //添加离开的选项
-        cout << (customers.size() + 1) << ".離開" << endl;
-        //顾客选择防呆
-        int selectCustomer = menuCustomerSelect(1, customers.size() + 1);
-
-        //选择离开时直接结束
-        if (selectCustomer == customers.size() + 1)
-        {
-            exit(0);
-        }
-
-        //获取当前选中的客户
-        Customer* nowCustomer = customers[selectCustomer - 1];
         //获取所有商店
         vector<Shop*> shops = *(_mall->getShops());
 
