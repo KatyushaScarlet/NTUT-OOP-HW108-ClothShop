@@ -180,7 +180,7 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
                 //int suiteList[10];
                 vector<Cloth*> suiteList;
                 double totalPrice = 0.0;
-                //前4个元素为套装基础信息，跳过
+                //前4个元素为基础信息，跳过
                 int suiteSize = newItem.size() - 4;
 
                 for (size_t i = 0; i < suiteSize; i++)
@@ -188,28 +188,20 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
                     //获取衣服index
                     int index = atoi(newItem[i + 4].c_str());
                     //根据index获取要添加的衣服信息
-					shared_ptr<vector<string>> ptr = clothMap[index];
+                    shared_ptr<vector<string>> ptr = clothMap[index];
                     //获取单价
                     double clothPrice = atoi((*ptr)[3].c_str());
                     //加入套装清单
                     suiteList.push_back(new Cloth((*ptr)[1], (*ptr)[2], clothPrice, -1));
                     //加入总价格
                     totalPrice += clothPrice;
-
                 }
 
                 //总价打九折
                 totalPrice *= 0.9;
-
-				//添加套装
-
-				//todo
-
+                //添加套装
+                newShop->addNewSuite(newItem[1], newItem[2], totalPrice, suiteList);
             }
-
-            //vector<string>newCloth = getClothContent(fileContent[i]);
-            ////将当前店铺添加新的衣服
-            //newShop->addNewCloth(newCloth[0], newCloth[1], atof(newCloth[2].c_str()));
         }
     }
 

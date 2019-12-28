@@ -1,4 +1,5 @@
 #include"Cloth.h"
+#include"Suite.h"
 #include"Shop.h"
 
 using namespace std;
@@ -38,7 +39,7 @@ void Shop::addNewCloth(string name, string description, double price)
 //添加套装
 void Shop::addNewSuite(string name, string description, double price, vector<Cloth*> cloths)
 {
-	//todo
+	_clothes.push_back(new Suite(name, description, price, _clothesId, cloths));
 }
 
 //获取商店名称
