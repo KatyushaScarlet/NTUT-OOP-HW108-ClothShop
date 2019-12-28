@@ -38,6 +38,7 @@ void Shop::addNewCloth(string name, string description, double price)
 //添加套装
 void Shop::addNewSuite(string name, string description, double price, vector<Cloth*> cloths)
 {
+	//todo
 }
 
 //获取商店名称

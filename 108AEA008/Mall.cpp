@@ -141,8 +141,8 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
 {
     //创建店铺指针
     Shop* newShop = new Shop("");
-    //当前店铺的衣服清单<index,cloth>
-    map<int, unique_ptr<Cloth>> clothList;
+    //当前店铺的衣服<index,cloth>
+    map<int, shared_ptr<vector<string>>> clothMap;
 
     //写入店铺信息
     for (size_t i = 0; i < fileContent.size(); i++)
@@ -155,7 +155,7 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
                 //将上次创建的店铺加入列表中
                 _shops->push_back(newShop);
                 //清空衣服清单
-                clothList.erase(clothList.begin(), clothList.end());
+                clothMap.erase(clothMap.begin(), clothMap.end());
             }
 
             //创建新的店铺
@@ -171,10 +171,40 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
                 //添加衣服
                 newShop->addNewCloth(newItem[1], newItem[2], atof(newItem[3].c_str()));
                 //将衣服信息添加到map中
+                clothMap.insert(make_pair(atoi(newItem[0].c_str()), make_unique<vector<string>>(newItem)));
             }
             else
             {
                 //添加套装
+                //获取套装中的衣服清单
+                //int suiteList[10];
+                vector<Cloth*> suiteList;
+                double totalPrice = 0.0;
+                //前4个元素为套装基础信息，跳过
+                int suiteSize = newItem.size() - 4;
+
+                for (size_t i = 0; i < suiteSize; i++)
+                {
+                    //获取衣服index
+                    int index = atoi(newItem[i + 4].c_str());
+                    //根据index获取要添加的衣服信息
+					shared_ptr<vector<string>> ptr = clothMap[index];
+                    //获取单价
+                    double clothPrice = atoi((*ptr)[3].c_str());
+                    //加入套装清单
+                    suiteList.push_back(new Cloth((*ptr)[1], (*ptr)[2], clothPrice, -1));
+                    //加入总价格
+                    totalPrice += clothPrice;
+
+                }
+
+                //总价打九折
+                totalPrice *= 0.9;
+
+				//添加套装
+
+				//todo
+
             }
 
             //vector<string>newCloth = getClothContent(fileContent[i]);
