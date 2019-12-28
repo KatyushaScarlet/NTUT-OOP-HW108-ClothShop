@@ -5,6 +5,12 @@
 
 using namespace std;
 
+//构造函数
+Order::Order(Shop* shop) 
+{
+	_shop = shop;
+}
+
 //获取当前商店
 Shop* Order::getShop()
 {

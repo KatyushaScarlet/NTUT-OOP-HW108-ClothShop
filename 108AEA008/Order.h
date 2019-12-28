@@ -18,7 +18,7 @@ class Order
         string _owner;
     public:
         //构造函数
-        Order(Shop* shop) : _shop(shop) {}
+		Order(Shop* shop);
         //获取当前商店
         Shop* getShop();
         //订单添加衣服

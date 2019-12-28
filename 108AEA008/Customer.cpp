@@ -85,7 +85,10 @@ vector<Order*> Customer::getHistoryOrders(Shop* shop)
 
     for (int i = 0; i < _historyOrders.size(); i++)
     {
-        if (_historyOrders[i]->getShop()->getName() == shop->getName())
+        string temp1 = _historyOrders[i]->getShop()->getName();
+        string temp2 = shop->getName();
+
+        if (temp1 == temp2 )
         {
             result.push_back(_historyOrders[i]);
         }

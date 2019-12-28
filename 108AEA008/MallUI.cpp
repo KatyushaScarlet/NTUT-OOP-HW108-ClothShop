@@ -33,7 +33,7 @@ void MallUI::start()
     //添加离开的选项
     cout << (customers.size() + 1) << ".離開" << endl;
     //顾客选择防呆
-	size_t selectCustomer = menuCustomerSelect(1, customers.size() + 1);
+    size_t selectCustomer = menuCustomerSelect(1, customers.size() + 1);
 
     //选择离开时直接结束
     if (selectCustomer == customers.size() + 1)
@@ -57,7 +57,7 @@ void MallUI::start()
         }
 
         //商店选择防呆
-		size_t selectShop = menuShopSelect(1, shops.size());
+        size_t selectShop = menuShopSelect(1, shops.size());
         //获取当前选中的商店
         Shop* nowShop = shops[selectShop - 1];
         //选择商店和客户
@@ -259,20 +259,27 @@ void MallUI::placeAnOrder()
     //判断是否建立过订单
     if (_mall->getCurrentOrder() != NULL)
     {
-        //如果建立过订单，判断剩余点数是否足够
-        if (_mall->isPointEnough())
+        //判断是否为空订单
+        if (_mall->getCurrentOrder()->getTotalPrice() != 0)
         {
-            //如果点数足够，则扣除点数
-            _mall->reducePointFromOrder();
-            //订单结束后取消订单
-            _mall->cancelOrder();
-            cout << "訂單結束成功！" << endl;
-			//将当前订单加入历史订单
-			_mall->addToHistoryOrders(_mall->getCurrentOrder());
+            //如果建立过订单，判断剩余点数是否足够
+            if (_mall->isPointEnough())
+            {
+                //如果点数足够，则扣除点数
+                _mall->reducePointFromOrder();
+                //订单结束
+                cout << "訂單結束成功！" << endl;
+                //将当前订单加入历史订单
+                _mall->addToHistoryOrders(_mall->getCurrentOrder());
+            }
+            else
+            {
+                cout << "剩餘點數不足，無法進行購買！" << endl;
+            }
         }
         else
         {
-            cout << "剩餘點數不足，無法進行購買！" << endl;
+            cout << "訂單内無任何商品！" << endl;
         }
     }
     else
@@ -290,24 +297,69 @@ void MallUI::showPoints()
 //查看历史收据（UI）
 void MallUI::showHistoryOrders()
 {
-	cout << _mall->getSelectCustomer()->getName() << "的歷史購買記錄：" << endl;
-	cout << std::left << setw(6) << "名稱" << std::left << setw(50) << "數量" << std::left << setw(10) << "單價" << std::left << setw(50) << "總價" << endl;
-	//获取历史订单
-	vector<Order*>historyOrders = _mall->getHistoryOrders(_mall->getSelectShop());
-	//逐条输出
-	for (size_t i = 0; i < historyOrders.size(); i++)
-	{
-		Order* currentOrder = historyOrders[i];
+    cout << _mall->getSelectCustomer()->getName() << "的歷史購買記錄：" << endl;
+    cout << std::left << setw(6) << "名稱" << std::left << setw(50) << "數量" << std::left << setw(10) << "單價" << std::left << setw(50) << "總價" << endl;
+    //获取历史订单
+    vector<Order*>historyOrders = _mall->getHistoryOrders(_mall->getSelectShop());
 
+    //逐条输出
+    for (size_t i = 0; i < historyOrders.size(); i++)
+    {
+        //获取一条订单
+        Order* currentOrder = historyOrders[i];
+        //整理订单信息（衣服id，衣服数量）
+        map<int, int> clothMap = organizeOrder(currentOrder);
+        //map迭代器
+        map<int, int>::iterator item;
 
-	}
+        for (item = clothMap.begin(); item != clothMap.end(); item++)
+        {
+            //根据id查找衣服
+            Cloth* cloth = _mall->getSelectShop()->findCloth(item->first);
+            //衣服名称
+            string name = cloth->getName();
+            //衣服数量
+            int number = item->second;
+            //衣服价格
+            double price = cloth->getPrice();
+            //衣服数量*衣服价格
+            double subTotal = number * price;
+            //输出
+            cout << name << "|" << number << "|" << price << "|" << subTotal << endl;
+        }
+
+        cout << "總金額：" << currentOrder->getTotalPrice() << endl;
+    }
 }
 
 //整理订单信息（衣服id，衣服数量）
-//map<int, int> organizeOrder(Order* order)
-//{
-//
-//}
+map<int, int> MallUI::organizeOrder(Order* order)
+{
+    //构造键值对
+    map<int, int> result;
+    //获取订单中的衣服
+    vector<Cloth*> cloths = order->getOrderClothes();
+
+    //遍历所有衣服
+    for (size_t i = 0; i < cloths.size(); i++)
+    {
+        int id = cloths[i]->getId();
+
+        //查找该id是否已存在
+        if (result.count(id) > 0)
+        {
+            //已存在则添加数量
+            result[id]++;
+        }
+        else
+        {
+            //不存在则添加新的键值对
+            result.insert(pair<int, int>(id, 1));
+        }
+    }
+
+    return result;
+}
 
 
 
