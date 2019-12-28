@@ -39,9 +39,9 @@ void Shop::addNewCloth(string name, string description, double price)
 //添加套装
 void Shop::addNewSuite(string name, string description, double price, vector<Cloth*> cloths)
 {
-	_clothes.push_back(new Suite(name, description, price, _clothesId, cloths));
-	//每添加一个套装，id增加1
-	_clothesId++;
+    _clothes.push_back(new Suite(name, description, price, _clothesId, cloths));
+    //每添加一个套装，id增加1
+    _clothesId++;
 }
 
 //获取商店名称

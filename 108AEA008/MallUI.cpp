@@ -267,6 +267,7 @@ void MallUI::placeAnOrder()
             //订单结束后取消订单
             _mall->cancelOrder();
             cout << "訂單結束成功！" << endl;
+            //todo
         }
         else
         {
@@ -289,6 +290,7 @@ void MallUI::showPoints()
 void MallUI::showHistoryOrders()
 {
     cout << "本功能尚未完成實作" << endl;
+    //todo
 }
 
 //顾客选择防呆

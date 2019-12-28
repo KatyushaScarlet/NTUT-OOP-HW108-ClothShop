@@ -1,9 +1,9 @@
 #ifndef ORDER
 #define ORDER
 
-#include <vector>
-#include "Cloth.h"
-#include "Shop.h"
+#include<vector>
+#include"Cloth.h"
+#include"Shop.h"
 
 using namespace std;
 
@@ -23,5 +23,8 @@ class Order
         void addCloth(Cloth* clothToAdd);
         //获取订单总价
         double getTotalPrice();
+        //----------以下为自定义function----------
+        //获取订单内衣服清单
+        vector<Cloth*>getOrderClothes();
 };
 #endif // !ORDER

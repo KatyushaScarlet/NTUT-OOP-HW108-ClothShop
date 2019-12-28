@@ -1,7 +1,7 @@
 #include <vector>
 #include "Cloth.h"
 #include "Shop.h"
-#include"Order.h"
+#include "Order.h"
 
 using namespace std;
 
@@ -41,4 +41,10 @@ double Order::getTotalPrice()
     }
 
     return sum;
+}
+
+//获取订单内衣服清单
+vector<Cloth*> Order::getOrderClothes()
+{
+    return _orderedClothes;
 }

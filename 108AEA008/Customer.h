@@ -39,8 +39,8 @@ class Customer
         void cancelOrder();
         //获取当前的订单
         Order* getCurrentOrder();
-		//获取在某店铺的订单历史记录
-		vector<Order*>* getPurchasedHistoryFrom(Shop* shop);
+        //获取在某店铺的订单历史记录
+        vector<Order*>* getPurchasedHistoryFrom(Shop* shop);
 };
 
 #endif // ! CUSTOMER

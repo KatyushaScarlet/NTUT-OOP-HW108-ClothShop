@@ -244,34 +244,6 @@ string& Mall::clearHeadTailSpace(string& input)
     return input;
 }
 
-////分割文本
-//vector<string> Mall::split(const string& input, const string& sym)
-//{
-//    vector<string> output;
-//
-//    if (input == "")
-//    {
-//        return output;
-//    }
-//
-//    //先将要分割的字符串从string类型转换为char*类型
-//    char* buffer;
-//    char* strs = new char[input.length() + 1];
-//    strcpy_s(strs, strlen(strs) + 1, input.c_str());
-//    char* d = new char[sym.length() + 1];
-//    strcpy_s(d, strlen(d) + 1, sym.c_str());
-//    char* p = strtok_s(strs, d, &buffer);
-//
-//    while (p)
-//    {
-//        string s = p; //分割得到的字符串转换为string类型
-//        output.push_back(s); //存入结果数组
-//        p = strtok_s(NULL, d, &buffer);
-//    }
-//
-//    return output;
-//}
-
 //分割文本
 vector<string> Mall::split(string input, char pattern)
 {

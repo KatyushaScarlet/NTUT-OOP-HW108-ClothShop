@@ -3,9 +3,11 @@
 
 #include<string>
 #include<vector>
+#include<map>
 #include"Cloth.h"
 #include"Shop.h"
 #include"Customer.h"
+#include"Order.h"
 
 using namespace std;
 
