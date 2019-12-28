@@ -29,6 +29,7 @@
     <ClCompile Include="MallUI.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Suite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cloth.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="MallUI.h" />
     <ClInclude Include="Order.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="Suite.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

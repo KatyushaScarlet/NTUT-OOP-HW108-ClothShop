@@ -8,7 +8,7 @@ using namespace std;
 
 class Cloth
 {
-    private:
+    protected:
         //ÒÂ·şid
         int _id;
         //ÒÂ·şÃû³Æ
