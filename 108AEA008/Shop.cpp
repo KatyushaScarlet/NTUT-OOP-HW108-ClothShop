@@ -35,6 +35,11 @@ void Shop::addNewCloth(string name, string description, double price)
     _clothesId++;
 }
 
+//添加套装
+void Shop::addNewSuite(string name, string description, double price, vector<Cloth*> cloths)
+{
+}
+
 //获取商店名称
 string Shop::getName()
 {

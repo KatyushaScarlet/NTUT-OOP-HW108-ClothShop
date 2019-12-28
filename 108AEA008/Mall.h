@@ -31,8 +31,10 @@ class Mall
         void addShops(vector<string> fileContent, vector<Shop*>* _shops);
         //读取文件内容
         vector<string> readFile(string fileName);
-        //获取Cloth.txt中的衣服信息（name description price）
-        vector<string> getClothContent(string line);
+        //去除首位空格
+        string& clearHeadTailSpace(string& input);
+        //分割文本
+        vector<string> split(string input, char pattern);
         //获取Cloth.txt中的店铺名信息（Shop H&M:）
         string getShopContent(string line);
     public:

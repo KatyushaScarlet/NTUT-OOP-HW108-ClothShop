@@ -25,8 +25,6 @@ class MallUI
         int checkInputClothId();
         //衣服数量输入防呆
         int checkInputClothCount();
-        //分割文本
-        vector<string> split(string str, char key);
         //判断是否为合法浮点数
         bool isDouble(const string& str);
         //商店操作选单（UI）

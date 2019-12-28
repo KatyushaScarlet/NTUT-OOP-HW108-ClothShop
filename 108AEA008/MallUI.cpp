@@ -450,24 +450,6 @@ int MallUI::checkInputClothCount()
     return inputNumber;
 }
 
-//分割文本
-vector<string> MallUI::split(string input, char pattern)
-{
-    //转换为字符流
-    istringstream inputStream(input);
-    string word;
-    vector<string> output;
-
-    //逐个读入
-    while (getline(inputStream, word, pattern))
-    {
-        //加入容器
-        output.push_back(word);
-    }
-
-    return output;
-}
-
 //判断是否为合法浮点数
 bool MallUI::isDouble(const string& str)
 {

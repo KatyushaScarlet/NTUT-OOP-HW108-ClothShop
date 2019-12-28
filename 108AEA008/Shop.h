@@ -23,6 +23,8 @@ class Shop
         Cloth* findCloth(int id);
         //添加衣服
         void addNewCloth(string name, string description, double price);
+        //添加套装
+        void addNewSuite(string name, string description, double price, vector<Cloth*> cloths);
         //获取商店名称
         string getName();
         //获取所有衣服

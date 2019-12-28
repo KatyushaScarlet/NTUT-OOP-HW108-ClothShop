@@ -1,5 +1,10 @@
-#include<fstream>
+#include<iostream>
 #include<string>
+#include<vector>
+#include<fstream>
+#include<iomanip>
+#include<sstream>
+#include<map>
 #include"Mall.h"
 
 using namespace std;
@@ -136,6 +141,8 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
 {
     //创建店铺指针
     Shop* newShop = new Shop("");
+    //当前店铺的衣服清单<index,cloth>
+    map<int, unique_ptr<Cloth>> clothList;
 
     //写入店铺信息
     for (size_t i = 0; i < fileContent.size(); i++)
@@ -147,6 +154,8 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
             {
                 //将上次创建的店铺加入列表中
                 _shops->push_back(newShop);
+                //清空衣服清单
+                clothList.erase(clothList.begin(), clothList.end());
             }
 
             //创建新的店铺
@@ -155,9 +164,22 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
         else if (fileContent[i] != "")
         {
             //如果内容不为空
-            vector<string>newCloth = getClothContent(fileContent[i]);
-            //将当前店铺添加新的衣服
-            newShop->addNewCloth(newCloth[0], newCloth[1], atof(newCloth[2].c_str()));
+            vector<string>newItem = split(fileContent[i], ',');
+
+            if (newItem[3] != "Suite")
+            {
+                //添加衣服
+                newShop->addNewCloth(newItem[1], newItem[2], atof(newItem[3].c_str()));
+                //将衣服信息添加到map中
+            }
+            else
+            {
+                //添加套装
+            }
+
+            //vector<string>newCloth = getClothContent(fileContent[i]);
+            ////将当前店铺添加新的衣服
+            //newShop->addNewCloth(newCloth[0], newCloth[1], atof(newCloth[2].c_str()));
         }
     }
 
@@ -187,36 +209,62 @@ vector<string> Mall::readFile(string fileName)
     return fileContent;
 }
 
-//获取Cloth.txt中的衣服信息（name description price）
-vector<string> Mall::getClothContent(string line)
+//去除首位空格
+string& Mall::clearHeadTailSpace(string& input)
 {
-    //创建容器
+    if (input.empty())
+    {
+        return input;
+    }
+
+    input.erase(0, input.find_first_not_of(" "));
+    input.erase(input.find_last_not_of(" ") + 1);
+    return input;
+}
+
+////分割文本
+//vector<string> Mall::split(const string& input, const string& sym)
+//{
+//    vector<string> output;
+//
+//    if (input == "")
+//    {
+//        return output;
+//    }
+//
+//    //先将要分割的字符串从string类型转换为char*类型
+//    char* buffer;
+//    char* strs = new char[input.length() + 1];
+//    strcpy_s(strs, strlen(strs) + 1, input.c_str());
+//    char* d = new char[sym.length() + 1];
+//    strcpy_s(d, strlen(d) + 1, sym.c_str());
+//    char* p = strtok_s(strs, d, &buffer);
+//
+//    while (p)
+//    {
+//        string s = p; //分割得到的字符串转换为string类型
+//        output.push_back(s); //存入结果数组
+//        p = strtok_s(NULL, d, &buffer);
+//    }
+//
+//    return output;
+//}
+
+//分割文本
+vector<string> Mall::split(string input, char pattern)
+{
+    //转换为字符流
+    istringstream inputStream(input);
+    string word;
     vector<string> output;
-    output.push_back("");
-    output.push_back("");
-    output.push_back("");
-    //寻找第一个和最后一个分隔符的位置
-    int first = line.find_first_of(",");
-    int last = line.find_last_of(",");
-    ////转换为char
-    //const char* item = line.c_str();
 
-    //第一个字符到第一个分隔符为止中间的部分
-    for (int i = 0; i < first; i++)
+    //逐个读入
+    while (getline(inputStream, word, pattern))
     {
-        output[0] = output[0] + line[i];
-    }
-
-    //第一个分隔符到最后一个分隔符为止中间的部分
-    for (int i = first + 1; i < last; i++)
-    {
-        output[1] = output[1] + line[i];
-    }
-
-    //最后一个分隔符到最后一个字符
-    for (int i = last + 1; i < line.length(); i++)
-    {
-        output[2] = output[2] + line[i];
+        //去除首位空格
+        word = clearHeadTailSpace(word);
+        //加入容器
+        output.push_back(word);
     }
 
     return output;
