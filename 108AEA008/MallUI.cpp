@@ -185,6 +185,12 @@ void MallUI::showAllClothsFormShopUI()
 //建立新订单（UI）
 void MallUI::createNewOrder()
 {
+	if (_mall->getCurrentOrder() != NULL)
+	{
+		//如果订单已存在，则删除之前的订单
+		_mall->cancelOrder();
+	}
+	//建立新订单
     _mall->makeNewOrder();
     cout << "成功建立新訂單！！！" << endl;
 }
@@ -271,6 +277,8 @@ void MallUI::placeAnOrder()
                 cout << "訂單結束成功！" << endl;
                 //将当前订单加入历史订单
                 _mall->addToHistoryOrders(_mall->getCurrentOrder());
+				//删除之前的订单
+				_mall->cancelOrder();
             }
             else
             {
@@ -298,7 +306,7 @@ void MallUI::showPoints()
 void MallUI::showHistoryOrders()
 {
     cout << _mall->getSelectCustomer()->getName() << "的歷史購買記錄：" << endl;
-    cout << std::left << setw(6) << "名稱" << std::left << setw(50) << "數量" << std::left << setw(10) << "單價" << std::left << setw(50) << "總價" << endl;
+    cout << std::left << setw(50) << "名稱" << std::left << setw(10) << "數量" << std::left << setw(10) << "單價" << std::left << setw(10) << "總價" << endl;
     //获取历史订单
     vector<Order*>historyOrders = _mall->getHistoryOrders(_mall->getSelectShop());
 
@@ -325,10 +333,10 @@ void MallUI::showHistoryOrders()
             //衣服数量*衣服价格
             double subTotal = number * price;
             //输出
-            cout << name << "|" << number << "|" << price << "|" << subTotal << endl;
+            cout << std::left << setw(50) << name << std::left << setw(10) << number << std::left << setw(10) << price << std::left << setw(10) << subTotal << endl;
         }
 
-        cout << "總金額：" << currentOrder->getTotalPrice() << endl;
+        cout << "" << std::right << setw(70) << "總金額：" << currentOrder->getTotalPrice() << endl;
     }
 }
 
