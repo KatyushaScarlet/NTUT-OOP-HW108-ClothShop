@@ -115,9 +115,9 @@ bool Mall::compareShop(Shop* shop1, Shop* shop2)
 void Mall::sortShopVector(vector<Shop*>* shops)
 {
     //采用冒泡排序
-    for (size_t i = 1; i < (shops->size() - 1); i++)
+    for (int i = 1; i < (shops->size() - 1); i++)
     {
-        for (size_t j = i + 1; j < shops->size(); j++)
+        for (int j = i + 1; j < shops->size(); j++)
         {
             //采用自定规则比较大小
             if (compareShop((*shops)[i + 1], (*shops)[i]))
@@ -145,7 +145,7 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
     map<int, shared_ptr<vector<string>>> clothMap;
 
     //写入店铺信息
-    for (size_t i = 0; i < fileContent.size(); i++)
+    for (int i = 0; i < fileContent.size(); i++)
     {
         //如果内容是店铺名
         if (fileContent[i].find("Shop") != fileContent[i].npos)
@@ -183,7 +183,7 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
                 //前4个元素为基础信息，跳过
                 int suiteSize = newItem.size() - 4;
 
-                for (size_t i = 0; i < suiteSize; i++)
+                for (int i = 0; i < suiteSize; i++)
                 {
                     //获取衣服index
                     int index = atoi(newItem[i + 4].c_str());

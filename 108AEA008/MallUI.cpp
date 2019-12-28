@@ -25,7 +25,7 @@ void MallUI::start()
     vector<Customer*> customers = *(_mall->getCustomers());
 
     //输出顾客选单
-    for (size_t i = 0; i < customers.size(); i++)
+    for (int i = 0; i < customers.size(); i++)
     {
         cout << (i + 1) << "." << customers[i]->getName() << endl;
     }
@@ -51,7 +51,7 @@ void MallUI::start()
         vector<Shop*> shops = *(_mall->getShops());
 
         //输出商店选单
-        for (size_t i = 0; i < shops.size(); i++)
+        for (int i = 0; i < shops.size(); i++)
         {
             cout << (i + 1) << "." << shops[i]->getName() << endl;
         }
@@ -267,7 +267,6 @@ void MallUI::placeAnOrder()
             //订单结束后取消订单
             _mall->cancelOrder();
             cout << "訂單結束成功！" << endl;
-            //todo
         }
         else
         {

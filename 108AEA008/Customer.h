@@ -16,8 +16,10 @@ class Customer
         string _name;
         //点数
         double _point;
-        //订单
+        //当前订单
         Order* _order;
+        //历史订单
+        vector<Order*> _historyOrders;
     public:
         //构造函数
         Customer(string name);
@@ -39,8 +41,8 @@ class Customer
         void cancelOrder();
         //获取当前的订单
         Order* getCurrentOrder();
-        //获取在某店铺的订单历史记录
-        vector<Order*>* getPurchasedHistoryFrom(Shop* shop);
+        //将订单添加至历史订单
+        void addToHistoryOrders(Order* order);
 };
 
 #endif // ! CUSTOMER

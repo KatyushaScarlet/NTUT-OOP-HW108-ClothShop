@@ -16,7 +16,7 @@ Shop::Shop(string name)
 //寻找衣服
 Cloth* Shop::findCloth(int id)
 {
-    for (size_t i = 0; i < _clothes.size(); i++)
+    for (int i = 0; i < _clothes.size(); i++)
     {
         //寻找id相同的衣服
         if (_clothes[i]->getId() == id)

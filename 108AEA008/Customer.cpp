@@ -71,3 +71,9 @@ Order* Customer::getCurrentOrder()
 {
     return _order;
 }
+
+//将订单添加至历史订单
+void Customer::addToHistoryOrders(Order* order)
+{
+    _historyOrders.push_back(order);
+}
