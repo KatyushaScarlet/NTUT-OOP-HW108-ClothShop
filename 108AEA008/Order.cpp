@@ -6,9 +6,9 @@
 using namespace std;
 
 //构造函数
-Order::Order(Shop* shop) 
+Order::Order(Shop* shop)
 {
-	_shop = shop;
+    _shop = shop;
 }
 
 //获取当前商店

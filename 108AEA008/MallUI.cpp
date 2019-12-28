@@ -185,12 +185,13 @@ void MallUI::showAllClothsFormShopUI()
 //建立新订单（UI）
 void MallUI::createNewOrder()
 {
-	if (_mall->getCurrentOrder() != NULL)
-	{
-		//如果订单已存在，则删除之前的订单
-		_mall->cancelOrder();
-	}
-	//建立新订单
+    if (_mall->getCurrentOrder() != NULL)
+    {
+        //如果订单已存在，则删除之前的订单
+        _mall->cancelOrder();
+    }
+
+    //建立新订单
     _mall->makeNewOrder();
     cout << "成功建立新訂單！！！" << endl;
 }
@@ -277,8 +278,8 @@ void MallUI::placeAnOrder()
                 cout << "訂單結束成功！" << endl;
                 //将当前订单加入历史订单
                 _mall->addToHistoryOrders(_mall->getCurrentOrder());
-				//删除之前的订单
-				_mall->cancelOrder();
+                //删除之前的订单
+                _mall->cancelOrder();
             }
             else
             {

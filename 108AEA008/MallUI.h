@@ -27,8 +27,8 @@ class MallUI
         int checkInputClothCount();
         //判断是否为合法浮点数
         bool isDouble(const string& str);
-		//整理订单信息（衣服id，衣服数量）
-		map<int, int> organizeOrder(Order* order);
+        //整理订单信息（衣服id，衣服数量）
+        map<int, int> organizeOrder(Order* order);
         //商店操作选单（UI）
         void menuShopUI(Shop* nowShop, Customer* nowCustomer);
         //新增衣服（UI）
