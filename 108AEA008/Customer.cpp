@@ -77,3 +77,19 @@ void Customer::addToHistoryOrders(Order* order)
 {
     _historyOrders.push_back(order);
 }
+
+//获取当前店铺下的订单
+vector<Order*> Customer::getHistoryOrders(Shop* shop)
+{
+    vector<Order*> result;
+
+    for (int i = 0; i < _historyOrders.size(); i++)
+    {
+        if (_historyOrders[i]->getShop()->getName() == shop->getName())
+        {
+            result.push_back(_historyOrders[i]);
+        }
+    }
+
+    return result;
+}

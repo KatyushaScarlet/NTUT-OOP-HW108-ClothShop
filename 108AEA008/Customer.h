@@ -41,8 +41,11 @@ class Customer
         void cancelOrder();
         //获取当前的订单
         Order* getCurrentOrder();
+        //----------以下为自定义function----------
         //将订单添加至历史订单
         void addToHistoryOrders(Order* order);
+        //获取当前店铺下的订单
+        vector<Order*> getHistoryOrders(Shop* shop);
 };
 
 #endif // ! CUSTOMER

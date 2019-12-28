@@ -69,5 +69,9 @@ class Mall
         Shop* getSelectShop();
         //获取当前选中的顾客
         Customer* getSelectCustomer();
+        //将订单添加至历史订单
+        void addToHistoryOrders(Order* order);
+        //获取当前店铺下的订单
+        vector<Order*> getHistoryOrders(Shop* shop);
 };
 #endif

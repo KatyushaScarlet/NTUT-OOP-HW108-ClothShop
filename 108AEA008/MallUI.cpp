@@ -33,7 +33,7 @@ void MallUI::start()
     //添加离开的选项
     cout << (customers.size() + 1) << ".離開" << endl;
     //顾客选择防呆
-    int selectCustomer = menuCustomerSelect(1, customers.size() + 1);
+	size_t selectCustomer = menuCustomerSelect(1, customers.size() + 1);
 
     //选择离开时直接结束
     if (selectCustomer == customers.size() + 1)
@@ -57,7 +57,7 @@ void MallUI::start()
         }
 
         //商店选择防呆
-        int selectShop = menuShopSelect(1, shops.size());
+		size_t selectShop = menuShopSelect(1, shops.size());
         //获取当前选中的商店
         Shop* nowShop = shops[selectShop - 1];
         //选择商店和客户
@@ -267,6 +267,8 @@ void MallUI::placeAnOrder()
             //订单结束后取消订单
             _mall->cancelOrder();
             cout << "訂單結束成功！" << endl;
+			//将当前订单加入历史订单
+			_mall->addToHistoryOrders(_mall->getCurrentOrder());
         }
         else
         {
@@ -288,9 +290,26 @@ void MallUI::showPoints()
 //查看历史收据（UI）
 void MallUI::showHistoryOrders()
 {
-    cout << "本功能尚未完成實作" << endl;
-    //todo
+	cout << _mall->getSelectCustomer()->getName() << "的歷史購買記錄：" << endl;
+	cout << std::left << setw(6) << "名稱" << std::left << setw(50) << "數量" << std::left << setw(10) << "單價" << std::left << setw(50) << "總價" << endl;
+	//获取历史订单
+	vector<Order*>historyOrders = _mall->getHistoryOrders(_mall->getSelectShop());
+	//逐条输出
+	for (size_t i = 0; i < historyOrders.size(); i++)
+	{
+		Order* currentOrder = historyOrders[i];
+
+
+	}
 }
+
+//整理订单信息（衣服id，衣服数量）
+//map<int, int> organizeOrder(Order* order)
+//{
+//
+//}
+
+
 
 //顾客选择防呆
 int MallUI::menuCustomerSelect(int min, int max)

@@ -181,7 +181,7 @@ void Mall::addShops(vector<string> fileContent, vector<Shop*>* _shops)
                 vector<Cloth*> suiteList;
                 double totalPrice = 0.0;
                 //前4个元素为基础信息，跳过
-                int suiteSize = newItem.size() - 4;
+                size_t suiteSize = newItem.size() - 4;
 
                 for (int i = 0; i < suiteSize; i++)
                 {
@@ -268,8 +268,8 @@ vector<string> Mall::split(string input, char pattern)
 string Mall::getShopContent(string line)
 {
     //寻找第一个和最后一个分隔符的位置
-    int first = line.find_first_of(" ");
-    int last = line.find_last_of(":");
+    size_t first = line.find_first_of(" ");
+    size_t last = line.find_last_of(":");
     //输出变量
     string output;
 
@@ -292,4 +292,16 @@ Shop* Mall::getSelectShop()
 Customer* Mall::getSelectCustomer()
 {
     return _customers[_customerIndex];
+}
+
+//将订单添加至历史订单
+void Mall::addToHistoryOrders(Order* order)
+{
+    _customers[_customerIndex]->addToHistoryOrders(order);
+}
+
+//获取当前店铺下的订单
+vector<Order*> Mall::getHistoryOrders(Shop* shop)
+{
+    return _customers[_customerIndex]->getHistoryOrders(shop);
 }
