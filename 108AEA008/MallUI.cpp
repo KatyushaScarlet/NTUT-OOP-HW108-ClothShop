@@ -337,7 +337,7 @@ void MallUI::showHistoryOrders()
             cout << std::left << setw(50) << name << std::left << setw(10) << number << std::left << setw(10) << price << std::left << setw(10) << subTotal << endl;
         }
 
-        cout << "" << std::right << setw(70) << "¿‚½ðî~£º" << currentOrder->getTotalPrice() << endl;
+        cout << "" << std::right << setw(68) << "¿‚½ðî~£º" << currentOrder->getTotalPrice() << endl;
     }
 }
 

@@ -13,7 +13,7 @@ Customer::Customer(string name)
     //输入姓名
     _name = name;
     //预设点数为2000
-    _point = 1000000;
+    _point = 2000;
 }
 
 //获取姓名
